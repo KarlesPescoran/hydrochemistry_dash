@@ -1,0 +1,19 @@
+name: dashboard
+channels:
+  - defaults
+dependencies:
+  - python=3.11.15
+  - pip
+  - pip:
+      - shiny
+      - shinywidgets
+      - streamlit
+      - ipyleaflet
+      - pandas
+      - geopandas
+      - openpyxl
+      - matplotlib
+      - numpy
+      - seaborn
+      - scikit-learn
+      - adjustText

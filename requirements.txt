@@ -1,0 +1,13 @@
+shiny
+shinywidgets
+ipyleaflet
+pandas
+geopandas
+matplotlib
+seaborn
+scikit-learn
+adjustText
+openpyxl
+rsconnect-python
+numpy
+xlrd

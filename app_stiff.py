@@ -397,16 +397,16 @@ with st.sidebar.expander("Proyecto"):
     if st.session_state.logged_in and st.session_state.cargado is False and st.session_state.data_raw is None:
         st.info("Carga un proyecto para ver la tabla editable, filtros y gráficas.")
 
-# if not st.session_state.logged_in:
-#     st.title("Hidroquímica")
-#     pw = st.text_input("Ingrese la contraseña:", type="password", key="login_password")
-#     if st.button("Ingresar", key="login_btn"):
-#         if pw == PASSWORD:
-#             st.session_state.logged_in = True
-#             st.rerun()
-#         else:
-#             st.error("Contraseña incorrecta. Intente nuevamente.")
-#     st.stop()
+if not st.session_state.logged_in:
+    st.title("Hidroquímica")
+    pw = st.text_input("Ingrese la contraseña:", type="password", key="login_password")
+    if st.button("Ingresar", key="login_btn"):
+        if pw == PASSWORD:
+            st.session_state.logged_in = True
+            st.rerun()
+        else:
+            st.error("Contraseña incorrecta. Intente nuevamente.")
+    st.stop()
 
 intro_tab, view_tables_tab, balance_tab, balance_graph_tab, stiff_tab, piper_tab = st.tabs([
     "Intro", "Tables", "Balance", "Balance gráficos", "Stiff", "Piper"

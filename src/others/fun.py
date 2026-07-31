@@ -108,7 +108,7 @@ def get_gwq(df: pd.DataFrame, clean = True, ions_name = []):
                                 "TDS"])
     if clean:
         df = clean_data(df, cleaner="<")
-    print(df.columns[2:])
+    #print(df.columns[2:])
     gwq["Sample"] = df["id"]
     if not "Label" in df.columns:
         gwq["Label"] = df["id"].values

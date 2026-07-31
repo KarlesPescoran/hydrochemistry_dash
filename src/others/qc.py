@@ -78,7 +78,7 @@ def TDS(df: pd.DataFrame, ax=None):
 
 def error(table, ax=None, xx = "id"):
     df = table.copy()
-    print(df)
+    #print(df)
     sns.set_theme(style="whitegrid", rc={
         "axes.edgecolor": "black",
         "axes.linewidth": 1.5,
@@ -150,7 +150,7 @@ def error(table, ax=None, xx = "id"):
     if es_categorico_puro:
         # Si era texto, forzamos los ticks y reemplazamos por el string
         ax.set_xticks(df["_x_plot"])
-        ax.set_xticklabels(df[x].astype(str), rotation=45, ha="right")
+        ax.set_xticklabels(df[xx].astype(str), rotation=45, ha="right")
         ax.set_xlabel(xx)
     else:
         # Si era numérico, dejamos que Matplotlib maneje la escala numérica normal automáticamente

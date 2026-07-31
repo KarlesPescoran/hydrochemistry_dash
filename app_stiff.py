@@ -419,7 +419,7 @@ def export_figures_zip(tab_actual):
 
     zip_buffer = io.BytesIO()
     tiene_contenido = False
-
+    print(tab_actual)
     with zipfile.ZipFile(zip_buffer, "w") as zf:
         # CASO 1: Descargar desde la pestaña Balance gráficos
         if tab_actual == "balance":
@@ -467,27 +467,32 @@ if st.session_state.cargado:
         st.number_input("Alto (cm)", min_value=1.0, value=float(st.session_state.get("export_height", 15.0)), key="export_height")
         st.number_input("DPI", min_value=72, max_value=1200, value=int(st.session_state.get("export_dpi", 300)), key="export_dpi")
         
-        # Informativo dinámico para el usuario
-        st.write(f"📂 **Pestaña activa:** {st.session_state.get('tab_activa', 'Intro')}")
+        # Le das al usuario la opción de elegir qué gráficos empaquetar en el ZIP
+        tab_actual = st.selectbox(
+            "Selecciona la sección a exportar:",
+            options=["balance", "stiff"],
+            format_func=lambda x: "Balance gráficos" if x == "balance" else "Stiff",
+            key="tab_activa_export"
+        )
         
-        if st.button("📦 Preparar gráficos para descarga", width=300):
-            tab_actual = st.session_state.get("tab_activa", "Intro")
-            with st.spinner("Compilando archivo ZIP específico..."):
+        if st.button("📦 Preparar gráficos para descarga", use_container_width=True):
+            with st.spinner(f"Compilando gráficos de {tab_actual}..."):
                 bytes_resultado = export_figures_zip(tab_actual)
                 if bytes_resultado is not None:
                     st.session_state.zip_bytes = bytes_resultado
+                    st.session_state.zip_tab_name = tab_actual
                     st.success(f"¡Gráficos de {tab_actual} listos!")
                 else:
-                    st.warning(f"No hay gráficos guardados o disponibles en la pestaña '{tab_actual}'.")
+                    st.warning(f"No hay gráficos guardados o disponibles para '{tab_actual}'.")
 
         if st.session_state.get("zip_bytes") is not None:
-            tab_actual = st.session_state.get("tab_activa", "Intro")
+            tab_descarga = st.session_state.get("zip_tab_name", "graficos")
             st.download_button(
                 "📥 Descargar gráficos (.zip)",
                 data=st.session_state.zip_bytes,
-                file_name=f"graficos_{tab_actual.lower().replace(' ', '_')}.zip",
+                file_name=f"graficos_{tab_descarga}.zip",
                 mime="application/zip",
-                width=300
+                use_container_width=True
             )
 
 # Sidebar filters (original make_filters logic, compact)

@@ -15,9 +15,12 @@ def TDS(df: pd.DataFrame, ax=None):
     model = LinearRegression().fit(x, y)
     y_pred = model.predict(x)
     r2 = r2_score(y, y_pred)
-    model_coef = model.coef_
-    model_intercept = model.intercept_
-    model_text = f"y = {round(float(model_coef), 4)}x + {round(float(model_intercept), 4)}\nR² = {round(r2, 2)}"
+    model_coef = float(model.coef_[0])
+    model_intercept = float(model.intercept_)
+    model_text = (
+        f"y = {model_coef:.4f}x + {model_intercept:.4f}\n"
+        f"R² = {r2:.2f}"
+    )
 
     sns.set_theme(style="whitegrid", rc={
         "axes.edgecolor": "black",
